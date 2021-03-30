@@ -60,4 +60,4 @@ client.connect(err => {
 
 
 app.get("/", (req, res) => res.send("Hello world"))
-app.listen(5000, () => console.log("Port is listening at port 5000..."))
+app.listen(process.env.PORT || 5000);
