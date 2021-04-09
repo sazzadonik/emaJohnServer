@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const MongoClient = require('mongodb').MongoClient;
+const { query } = require("express");
 require('dotenv').config();
 const app = express();
 app.use(cors());
@@ -25,7 +26,8 @@ client.connect(err => {
     })
 
     app.get("/products", (req, res) => {
-        collection.find({}).toArray((err, documents) => {
+        const search = req.query.search;
+        collection.find({ name: { $regex: search } }).toArray((err, documents) => {
             res.send(documents);
         });
     })
